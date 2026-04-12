@@ -1,0 +1,342 @@
+% ============================================================
+%  bilan_complementaire.tex
+%  Fiche A3 paysage — FICHE Bilan (4e regard)
+% ============================================================
+
+% ---- BANDEAU SUPÉRIEUR : identité victime --------------------
+\begin{tcolorbox}[
+  colback=pse-titre-bg, colframe=pse-titre-bg,
+  arc=0mm, boxrule=0pt,
+  top=1.5mm, bottom=1.5mm, left=4mm, right=4mm,
+]
+  \color{white}\small
+  \textbf{\large FICHE BILAN}\hfill
+  \begin{tabular}{@{}p{100mm} p{24mm} p{30mm} p{30mm} p{30mm} p{40mm}@{}}
+    \textbf{Nom :}\enspace\dotfill &
+    \textbf{Âge :}\enspace\dotfill &
+    \textbf{Sexe :}\;$\square$ H\;$\square$ F &
+    \textbf{Taille :}\enspace\dotfill &
+    \textbf{Poids :}\enspace\dotfill &
+    \textbf{Heure :}\enspace\dotfill
+  \end{tabular}\\[1mm]
+  \begin{tabular}{@{}p{0.55\linewidth} p{0.42\linewidth}@{}}
+    \textbf{Adresse :}\enspace\dotfill &
+    \textbf{ N\textsuperscript{o} de contact :}\enspace\dotfill
+  \end{tabular}
+\end{tcolorbox}
+
+\vspace{1mm}
+
+% ---- CORPS : 4 colonnes alignées en haut ---------------------
+\noindent
+\begin{minipage}[t]{0.245\linewidth}
+\vspace{0pt}%
+
+% ===========================================================
+%  COL 1 — MÉCANISME & ANAMNÈSE
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-jaune!8, colframe=pse-jaune,
+  title={\faSearch\enspace MÉCANISME \& ANAMNÈSE},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1.5mm, bottom=1.5mm, left=1.5mm, right=1.5mm,
+]
+
+\blocktitle{pse-jaune}{Mécanisme}
+\writeline{Circonstances :}
+\writeline{}
+\writeline{}
+\writeline{}
+
+\blocktitle{pse-jaune}{PQRST — Douleur}
+\acronymfield{pse-jaune}{P}{rovoquée / Palliée par}{}
+\acronymfield{pse-jaune}{Q}{ualité}{type de douleur}
+\acronymfield{pse-jaune}{R}{égion / Irradiation}{}
+% Sévérité en ronds numérotés
+\par\noindent
+\textbf{\textcolor{pse-jaune}{\large S}}%
+\rlap{\textcolor{pse-jaune!45}{\small évérité}}%
+\hfill\sev{0}  \sev{1}  \sev{2}  \sev{3}  \sev{4}  \sev{5}  \sev{6}  \sev{7}  \sev{8}  \sev{9}  \sev{10}%
+\par\vspace{0.5mm}%
+\acronymfield{pse-jaune}{T}{emps}{début, durée, évolution}
+
+\blocktitle{pse-jaune}{SAMPLE V — Anamnèse}
+\acronymfield{pse-jaune}{S}{ignes et symptômes}{}
+\acronymfield{pse-jaune}{A}{llergies connues}{}
+\acronymfield{pse-jaune}{M}{édicaments en cours}{}
+\acronymfield{pse-jaune}{P}{assé médical}{}
+\acronymfield{pse-jaune}{L}{ast meal}{dernier repas, heure}
+\acronymfield{pse-jaune}{E}{vénement déclencheur}{activité, stress, substances\ldots}
+\acronymfield{pse-jaune}{V}{accins}{}
+
+\blocktitle{pse-jaune}{MATH F — Antécédents}
+\acronymfield{pse-jaune}{M}{aladie}{}
+\acronymfield{pse-jaune}{A}{llergies}{}
+\acronymfield{pse-jaune}{T}{raitement}{grossesse, handicap\ldots}
+\acronymfield{pse-jaune}{H}{ospitalisations récentes}{}
+\acronymfield{pse-jaune}{F}{amille}{}
+
+\end{tcolorbox}
+
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.745\linewidth}
+\vspace{0pt}%
+
+% ===========================================================
+%  RAPPEL 2e REGARD — XABCD
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-rouge!8, colframe=pse-rouge,
+  title={\faExclamationTriangle\enspace 2\textsuperscript{e} REGARD — XABCD \textit{\small(ce qui tue en premier)}},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=0.5mm, bottom=0.5mm, left=2mm, right=2mm,
+]
+\small
+\renewcommand{\arraystretch}{1.0}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}m{8mm} X @{}>{\centering\arraybackslash}m{8mm} X @{}>{\centering\arraybackslash}m{8mm} X @{}>{\centering\arraybackslash}m{8mm} X @{}>{\centering\arraybackslash}m{8mm} X @{}}
+  \textbf{\textcolor{pse-rouge}{\Large X}} &
+  \textbf{Hémorragie} \newline {\smallscript Compression, garrot} &
+  \textbf{\textcolor{pse-rouge}{\Large A}} &
+  \textbf{Voies aériennes} \newline {\smallscript libération des voies aériennes} &
+  \textbf{\textcolor{pse-rouge}{\Large B}} &
+  \textbf{Respiration} \newline {\smallscript Regarder, écouter, sentir} &
+  \textbf{\textcolor{pse-rouge}{\Large C}} &
+  \textbf{Circulation} \newline {\smallscript Pouls, TRC, pâleur, marbrures} &
+  \textbf{\textcolor{pse-rouge}{\Large D}} &
+  \textbf{Neurologie} \newline {\smallscript Conscience (AVPU), pupilles} \\
+\end{tabularx}
+\end{tcolorbox}
+
+% \smallscript
+% \noindent
+% \textbf{\textcolor{pse-rouge}{\large X}}\enspace\textbf{Hémorragie} {\textcolor{pse-gris}{compression, garrot}}\hfill
+% \textbf{\textcolor{pse-rouge}{\large A}}\enspace\textbf{Voies aériennes} {\textcolor{pse-gris}{bascule tête, subluxation, désobstruction}}\hfill
+% \textbf{\textcolor{pse-rouge}{\large B}}\enspace\textbf{Respiration} {\textcolor{pse-gris}{regarder, écouter, sentir}}\hfill
+% \textbf{\textcolor{pse-rouge}{\large C}}\enspace\textbf{Circulation} {\textcolor{pse-gris}{pouls, TRC, pâleur}}\hfill
+% \textbf{\textcolor{pse-rouge}{\large D}}\enspace\textbf{Neurologie} {\textcolor{pse-gris}{conscience (AVPU), pupilles}}
+% \end{tcolorbox}
+
+% \vspace{1mm}
+
+% ---- 2 colonnes : Respi+Circu (gauche) | Neuro (droite) -----
+\noindent
+\begin{minipage}[t]{0.49\linewidth}
+\vspace{0pt}%
+
+% ===========================================================
+%  RESPIRATION (FARASS)
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-orange!8, colframe=pse-orange,
+  title={\faLungs\enspace RESPIRATION — FARASS},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1.5mm, bottom=1.5mm, left=1.5mm, right=1.5mm,
+]
+
+\acronymfieldsingle{pse-orange}{F}{réquence}{A\,:\,12–20, E\,:\,20–30, N\,:\,30–40, NN\,:\,40–60 mvt/min}
+\acronymfieldcheck{pse-orange}{A}{mplitude}{\opt{Profonde} \opt{Normale} \opt{Superficielle}}
+\acronymfieldcheck{pse-orange}{R}{égularité}{\opt{Régulière} \opt{Irrégulière} \opt{Symétrique} \opt{Asymétrique} \opt{G} \opt{D}}
+\acronymfield{pse-orange}{A}{spect}{cyanose, sueurs, bruits}
+\acronymfieldsingle{pse-orange}{S}{pO\textsubscript{2}}{N\,:\,94–100\,\%, IRC\,:\,89–94\,\%}
+\acronymfield{pse-orange}{S}{ymetrie}{tirage, balancement}
+
+\vspace{1mm}
+\acronymfieldsingle{pse-orange}{O}{\textsubscript{2}}{N\,:\,15\,L/min}
+\acronymfieldcheck{pse-orange}{M}{asque}{\opt{MHC (9–15\,L/min)} \opt{MMC(6–9\,L/min)} \opt{Lunettes(1–6\,L/min)}}
+
+\end{tcolorbox}
+
+\vspace{1mm}
+
+% ===========================================================
+%  CIRCULATION (FARATT)
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-vert!8, colframe=pse-vert,
+  title={\faHeartbeat\enspace CIRCULATION — FARATT},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1.5mm, bottom=1.5mm, left=1.5mm, right=1.5mm,
+]
+
+\acronymfieldsingle{pse-vert}{F}{réquence}{A\,:\,60–100\,bpm, E\,:\,70-140\,bpm, N\,:\,100-160\,bpm, NN\,:\,120-160\,bpm}
+\acronymfieldcheck{pse-vert}{A}{mplitude}{\opt{Bien frappée}\opt{Filante}}
+\acronymfieldcheck{pse-vert}{R}{égularité}{\opt{Régulier}\opt{Irrégulier}}
+\acronymfield{pse-vert}{A}{spect peau}{pâleur, cyanose, marbrures, froid}
+\acronymfieldsingle{pse-vert}{T}{RC}{N : $\leq$ 2\,s}
+\acronymfield{pse-vert}{T}{ension Artérielle}{N : 90–140 systolique | 60–90\,mmHg diastolique }
+
+\vspace{1mm}
+\acronymfieldsingle{pse-vert}{T}{empérature}{méthode, correction | hypo<35, fièvre>37.8, hyper>40\textdegree C}
+
+\end{tcolorbox}
+
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.49\linewidth}
+\vspace{0pt}%
+
+% ===========================================================
+%  NEUROLOGIQUE (OMSPGG + FAST + Glasgow)
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-bleu!8, colframe=pse-bleu,
+  title={\faBrain\enspace NEUROLOGIQUE — OMSPGG},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1.5mm, bottom=1.5mm, left=1.5mm, right=1.5mm,
+]
+
+\acronymfield{pse-bleu}{O}{rientation}{temps, lieu, identité, mémoire}
+\acronymfieldsingle{pse-bleu}{M}{otricité}{mouvement spontanée, forcée, sensibilité}
+\acronymfieldsingle{pse-bleu}{S}{ensibilité}{touché, douleur, température}
+\acronymfieldsingle{pse-bleu}{P}{upilles}{isocorie, réactivité, mydriase (OO), myosis ($\cdot$$\cdot$)}
+\acronymfieldsingle{pse-bleu}{G}{lasgow}{Y(4) + V(5) + M(6) = /15}
+\acronymfieldsingle{pse-bleu}{G}{lycémie}{N : 0,8–1,2\,g/L | 3,3–6,6\,mmol/L}
+
+\vspace{1mm}
+\blocktitle{pse-rouge}{FAST — Suspicion AVC}
+\acronymfieldsingle{pse-rouge}{F}{ace}{asymétrie, déviation}
+\acronymfieldsingle{pse-rouge}{A}{rm}{faiblesse, paralysie}
+\acronymfieldsingle{pse-rouge}{S}{peech}{trouble parole / compréhension}
+\acronymfieldsingle{pse-rouge}{T}{ime}{heure début des signes}
+
+\vspace{1mm}
+\blocktitle{pse-bleu}{Rappel Glasgow}
+
+{\smallscript
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}|>{\centering\arraybackslash}p{4mm}|l|>{\centering\arraybackslash}p{4mm}|l|>{\centering\arraybackslash}p{4mm}|l|@{}}
+\hline
+\rowcolor{pse-bleu!15}
+\multicolumn{2}{@{}|c|}{\textbf{\textcolor{pse-bleu}{Yeux (Y)}}} &
+\multicolumn{2}{c|}{\textbf{\textcolor{pse-bleu}{Verbal (V)}}} &
+\multicolumn{2}{c|}{\textbf{\textcolor{pse-bleu}{Moteur (M)}}} \\
+\hline
+4 & Spontanée       & 5 & Orientée          & 6 & Obéit aux ordres \\
+\hline
+3 & À la demande    & 4 & Confuse           & 5 & Orientée \\
+\hline
+2 & À la douleur    & 3 & Inappropriée      & 4 & Évitement \\
+\hline
+1 & Aucune          & 2 & Incompréhensible  & 3 & Flexion anormale \\
+\hline
+\cellcolor{pse-bleu} & \cellcolor{pse-bleu} & 1 & Aucune            & 2 & Extension \\
+\hline
+\cellcolor{pse-bleu} & \cellcolor{pse-bleu} & \cellcolor{pse-bleu} & \cellcolor{pse-bleu} & 1 & Aucune \\
+\hline
+\end{tabular}
+}
+
+\vspace{1mm}
+\blocktitle{pse-bleu}{Rappel EVDA}
+\begin{tabularx}{\linewidth}{@{}X X X p{45mm}@{}}
+  \acronymfieldsingle{pse-bleu}{E}{veil}{Alert} &
+  \acronymfieldsingle{pse-bleu}{V}{oix}{Verbal} &
+  \acronymfieldsingle{pse-bleu}{D}{ouleur}{Pain} &
+  \acronymfieldsingle{pse-bleu}{A}{réactive}{Unresponsive}
+\end{tabularx}
+\end{tcolorbox}
+
+\end{minipage}
+
+\vspace{1mm}
+
+% ===========================================================
+%  GESTES EFFECTUÉS (sous les 3 colonnes droites)
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-gris!8, colframe=pse-gris,
+  title={\faMedkit\enspace GESTES EFFECTUÉS},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1mm, bottom=1mm, left=2mm, right=2mm,
+]
+\smallscript
+\begin{tabular}{@{}p{0.19\linewidth}|p{0.19\linewidth}|p{0.19\linewidth}|p{0.19\linewidth}|p{0.19\linewidth}@{}}
+
+\textbf{\textcolor{pse-orange}{LVAS}} \newline
+$\square$ Aspiration mucosités \newline
+$\square$ Canule oropharyngée \newline
+$\square$ Désobstr. (claques) : \hrulefill \newline
+$\square$ Désobstr. (compr. abd.) : \hrulefill \newline
+$\square$ Bascule tête / subluxation
+&
+\textbf{\textcolor{pse-rouge}{ACR}} \newline
+$\square$ RCP (compr. thorac.) : \hrulefill \newline
+$\square$ DAE : \enspace\hrulefill\, h \,\hrulefill\enspace Chocs : \hrulefill \newline
+$\square$ Ventil. (insufflateur) : \hrulefill \newline
+$\square$ Ventil. (bouche-à-bouche) \newline
+$\square$ Administration O\textsubscript{2}
+&
+\textbf{\textcolor{pse-bleu}{TRAUMATISMES}} \newline
+$\square$ Collier cervical \newline
+$\square$ Maintien tête pos. neutre \newline
+$\square$ Retrait casque \newline
+$\square$ Attelle modulable \newline
+$\square$ Immobilisation écharpes
+&
+\textbf{\textcolor{pse-vert}{PLAIES / BRÛLURES}} \newline
+$\square$ Compression manuelle \newline
+$\square$ Pansement compressif \newline
+$\square$ Garrot : \enspace\hrulefill\, h \,\hrulefill \newline
+$\square$ Pansement stérile : \hrulefill \newline
+$\square$ Refroidissement (brûlure)
+&
+\textbf{\textcolor{pse-jaune}{POSITIONS}} \newline
+$\square$ PLS \newline
+$\square$ Position demi-assise \newline
+$\square$ Allongée \newline
+$\square$ Réchauffement victime \newline
+$\square$ Autre : \hrulefill
+
+\\
+\end{tabular}
+\end{tcolorbox}
+
+% \vspace{1mm}
+
+% ===========================================================
+%  SURVEILLANCE (sous Gestes effectués)
+% ===========================================================
+\begin{tcolorbox}[
+  colback=pse-titre-bg!5, colframe=pse-titre-bg,
+  title={\faClock\enspace SURVEILLANCE},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1mm, bottom=1mm, left=2mm, right=2mm,
+]
+\smallscript
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}|>{\bfseries}l|*{6}{>{\centering\arraybackslash}X|}@{}}
+\hline
+\rowcolor{pse-titre-bg!15}
+\textbf{Paramètre} & \textbf{Initial} & \textbf{T+5} & \textbf{T+10} & \textbf{T+15} & \textbf{T+20} & \textbf{T+\rule{5mm}{0.4pt}} \\
+\hline
+\textcolor{pse-orange}{FR} (bpm) & & & & & & \\
+\hline
+\textcolor{pse-orange}{SpO\textsubscript{2}} (\%) & & & & & & \\
+\hline
+\textcolor{pse-vert}{Pouls} (mpm) & & & & & & \\
+\hline
+\textcolor{pse-vert}{TA} (mmHg) & & & & & & \\
+\hline
+\textcolor{pse-vert}{TRC} (s) & & & & & & \\
+\hline
+\textcolor{pse-bleu}{GCS} (/15) & & & & & & \\
+\hline
+\textcolor{pse-bleu}{Pupilles} & & & & & & \\
+\hline
+\textcolor{pse-bleu}{Glycémie} (g/L|mol) & & & & & & \\
+\hline
+\textcolor{pse-vert}{T\textdegree} (\textdegree C) & & & & & & \\
+\hline
+\end{tabularx}
+\end{tcolorbox}
+
+\end{minipage}

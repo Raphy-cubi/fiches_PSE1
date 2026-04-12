@@ -1,0 +1,151 @@
+% ============================================================
+%  config.tex — Packages, couleurs, commandes globales
+% ============================================================
+
+\usepackage[a3paper, landscape, margin=6mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Mise en page
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+% Graphiques / boîtes
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, most}
+\usepackage{tikz}
+
+% Typographie
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{amssymb}
+
+% Entête-pied
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ============================================================
+%  PALETTE DE COULEURS
+% ============================================================
+\definecolor{pse-rouge}    {HTML}{C0392B}
+\definecolor{pse-bleu}     {HTML}{1A5276}
+\definecolor{pse-vert}     {HTML}{1E8449}
+\definecolor{pse-orange}   {HTML}{D35400}
+\definecolor{pse-jaune}    {HTML}{F39C12}
+\definecolor{pse-gris}     {HTML}{717D7E}%{616161}
+\definecolor{pse-ligne}    {HTML}{BDC3C7}
+\definecolor{pse-titre-bg} {HTML}{2C3E50}
+
+% ============================================================
+%  COMMANDES UTILITAIRES
+% ============================================================
+
+% Hauteur fixe d'un champ d'acronyme (2 lignes)
+\newlength{\fieldheight}
+\setlength{\fieldheight}{10.5mm}
+
+% Champ d'acronyme 1 ligne (ref à droite en gris)
+\newcommand{\acronymfieldsingle}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!45}{\small #3}}%
+  {\color{pse-ligne}\dotfill}%
+  {\textcolor{pse-gris!40}{\small #4}}%
+  \par\vspace{1mm}%
+}
+
+% Champ d'acronyme compact 2 lignes (4 arguments)
+%   #1 = couleur de zone
+%   #2 = lettre(s) majuscule(s) (grande, grasse, colorée)
+%   #3 = suite du mot (collée à la lettre, filigrane sombre)
+%   #4 = valeurs de référence / options (ligne 2, gros filigrane ; vide = pointillés seuls)
+\newcommand{\acronymfield}[4]{%
+  \par\noindent
+  \begin{minipage}[c][\fieldheight][t]{\linewidth}%
+    \textbf{\textcolor{#1}{\large #2}}%
+    \rlap{\textcolor{#1!45}{\small #3}}%
+    {\color{pse-ligne}\dotfill}\par\nobreak
+    \noindent
+    {\color{pse-ligne}\dotfill}%
+    {\textcolor{pse-gris!40}{\small #4}}%
+  \end{minipage}%
+  \par\vspace{1mm}%
+}
+
+% Variante : mot en grand sur les 2 lignes de pointillés
+%   Le texte (lettre + suite) est doublé en taille et centré verticalement
+%   sur toute la hauteur du champ, par-dessus les pointillés.
+\newcommand{\acronymfieldbig}[4]{%
+  \par\noindent
+  \begin{minipage}[c][\fieldheight][t]{\linewidth}%
+    \rlap{\smash{\raisebox{-3.5mm}{\textbf{\textcolor{#1}{\Large #2}}%
+      \textcolor{#1!40}{\large #3}}}}%
+    {\color{pse-ligne}\dotfill}\par\nobreak
+    \noindent
+    {\color{pse-ligne}\dotfill}%
+    {\textcolor{pse-gris!40}{\small #4}}%
+  \end{minipage}%
+  \par\vspace{1mm}%
+}
+
+% Taille intermédiaire : scriptsize + 0.5pt (8.5pt au lieu de 8pt)
+\newcommand{\smallscript}{\fontsize{8.5}{10}\selectfont}
+
+% Rond numéroté pour échelle de sévérité (0–10)
+\newcommand{\sev}[1]{%
+  \tikz[baseline=-0.5ex]\node[draw=pse-jaune!50, circle, minimum size=5mm, inner sep=0pt, font=\smallscript]{#1};\!%
+}
+
+% Helper : option à cocher (usage : \opt{Normale} \opt{Superficielle} …)
+\newcommand{\opt}[1]{%
+  $\square$\,{\small #1}\enspace
+}
+
+% Variante avec cases à cocher sur la ligne 2
+%   #4 = contenu libre (utiliser \opt{…} pour chaque option)
+\newcommand{\acronymfieldcheck}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!45}{\small #3}}%
+  {\color{pse-ligne}\dotfill}\;#4%
+  \par\vspace{1mm}%
+}
+
+% Variante big + cases à cocher
+\newcommand{\acronymfieldbigcheck}[4]{%
+  \par\noindent
+  \rlap{\smash{\raisebox{-1mm}{\textbf{\textcolor{#1}{\Large #2}}%
+    \textcolor{#1!40}{\large #3}}}}%
+  {\color{pse-ligne}\dotfill}\;#4%
+  \par\vspace{1mm}%
+}
+
+% Ligne d'écriture simple
+\newcommand{\writeline}[1]{%
+  \noindent\textbf{\small #1}\enspace{\color{pse-ligne}\dotfill}\par\vspace{2.5pt}%
+}
+
+% Sous-titre de bloc
+\newcommand{\blocktitle}[2]{%
+  \vspace{1.5mm}%
+  \noindent{\colorbox{#1}{\color{white}\bfseries\scriptsize\,#2\,}}%
+  \vspace{1.5mm}\par
+}
+
+% ============================================================
+%  EN-TÊTE / PIED DE PAGE
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\scriptsize\textcolor{pse-gris}{Bilan complémentaire — 4\textsuperscript{e} regard}}
+\fancyfoot[C]{\scriptsize\textcolor{pse-gris}{\textit{Fiche plastifiée — feutre effaçable}}}
+\fancyfoot[R]{\scriptsize\textcolor{pse-gris}{\thepage/\pageref{LastPage}}}

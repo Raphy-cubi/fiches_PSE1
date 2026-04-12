@@ -1,0 +1,54 @@
+# Doc files
+/doc/
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lot
+*.maf
+*.mtc
+*.mtc0
+*.nav
+*.nlo
+*.out
+*.pdfsync
+*.ps
+*.ptc
+*.run.xml
+*.snm
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.upa
+*.upb
+*.vrb
+*.xdv
+
+# Latexmk
+.latexmkrc
+
+# MiKTeX/TeX Live cache
+*.fmt
+*.dump
+
+# Editor files
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Build output (keep .pdf in git if desired, remove next line to track PDFs)tu
+# *.pdf
