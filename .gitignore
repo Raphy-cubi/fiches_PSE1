@@ -1,7 +1,15 @@
-# Doc files
+# ============================================================
+#  Fiches PSE1 — Bilan complémentaire · v0.2
+#  Fichier : .gitignore
+#  Rôle    : Exclut les artefacts de compilation, les fichiers
+#            d'éditeur et le dossier de doc local. PDFs de output/
+#            suivis dans git pour partage rapide.
+# ============================================================
+
+# Documentation locale
 /doc/
 
-# LaTeX auxiliary files
+# LaTeX auxiliary files (root + sub-dirs)
 *.aux
 *.bbl
 *.bcf
@@ -37,18 +45,19 @@
 *.vrb
 *.xdv
 
-# Latexmk
-.latexmkrc
+# Build dir (PDF intermédiaires + tous les .aux/.log)
+/build/
+!/build/.gitkeep
 
 # MiKTeX/TeX Live cache
 *.fmt
 *.dump
 
-# Editor files
-.vscode/
+# Editor files (sauf settings.json partagé)
+.vscode/*
+!.vscode/settings.json
 *.swp
 *~
 .DS_Store
 
-# Build output (keep .pdf in git if desired, remove next line to track PDFs)tu
-# *.pdf
+# PDFs finaux : suivis dans git (output/*.pdf), .gitkeep conservé pour le dossier vide
