@@ -1,0 +1,44 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/header.tex
+%  Rôle    : Bandeau supérieur — identité victime (Nom, Âge, Sexe,
+%            Taille, Poids, Heure + Adresse / N° de contact).
+%            Fond clair pour rester lisible avec un stylo bleu/noir.
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-titre-bg!10, colframe=pse-titre-bg,
+  arc=0mm, boxrule=0pt,
+  top=0.5mm, bottom=0.5mm, left=4mm, right=4mm,
+]
+  \color{pse-titre-bg}\large
+  \ifA{%
+    \textbf{\large FICHE BILAN}%
+  }{%
+    \smash{\raisebox{-0.5mm}{\bfseries\sffamily\fontsize{17}{19}\selectfont FICHE BILAN}}%
+  }\hfill
+  \ifA{%
+    \begin{tabular}{@{}p{100mm} p{24mm} p{30mm} p{30mm} p{30mm} p{40mm}@{}}
+      \textbf{Nom :}\enspace\dotfill &
+      \textbf{Âge :}\enspace\dotfill &
+      \textbf{Sexe :}\;$\square$ H\;$\square$ F &
+      \textbf{Taille :}\enspace\dotfill &
+      \textbf{Poids :}\enspace\dotfill &
+      \textbf{Heure :}\enspace\dotfill
+    \end{tabular}
+  }{%
+    \begin{tabular}{@{}p{68mm} p{25mm} p{30mm} p{25mm} p{25mm} p{30mm}@{}}
+      \textbf{Nom :}\enspace\dotfill &
+      \textbf{Âge :}\enspace\dotfill &
+      \textbf{Sexe :}\;$\square$ H\;$\square$ F &
+      \textbf{Taille :}\enspace\dotfill &
+      \textbf{Poids :}\enspace\dotfill &
+      \textbf{Heure :}\enspace\dotfill
+    \end{tabular}
+  }\\[1mm]
+  \begin{tabular}{@{}p{0.55\linewidth} p{0.42\linewidth}@{}}
+    \textbf{Adresse :}\enspace\dotfill &
+    \textbf{ N\textsuperscript{o} de contact :}\enspace\dotfill
+  \end{tabular}
+\end{tcolorbox}

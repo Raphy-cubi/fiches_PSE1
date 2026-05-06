@@ -1,0 +1,155 @@
+% !TEX root = ../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : inc/commands.tex
+%  Rôle    : Commandes maison utilisées par les sections.
+%            Chaque commande possède deux variantes :
+%              - suffixe A : version A3 (police standard, vspace généreux)
+%              - suffixe B : version A4 (compactage, scriptsize, vspace serré)
+%            Le dispatch en bas du fichier choisit la bonne variante via
+%            \PaperFormat ; \ifA{...}{...} permet aussi des conditionnels
+%            inline dans les fichiers de section.
+% ============================================================
+
+% ---- Hauteur fixe d'un champ \acronymfield (2 lignes pointillées) ----
+\newlength{\fieldheight}
+
+% ---- Police "intermédiaire" (XABCD, surveillance, gestes, glasgow) ----
+\newcommand{\smallscript}{\fontsize{8.5}{10}\selectfont}  % defaut A3
+
+% ---- Réglages spécifiques par format ----
+\ifx\PaperFormat\PaperFormatA
+  % A3
+  \setlength{\fieldheight}{9.5mm}
+\else
+  % A4 : compactage agressif
+  \setlength{\fieldheight}{6mm}
+  \renewcommand{\smallscript}{\fontsize{6}{7}\selectfont}
+\fi
+
+% ============================================================
+%  CHAMPS D'ACRONYME
+%    #1 = couleur de section, #2 = lettre majuscule, #3 = filigrane
+%    après la lettre, #4 = texte de référence (gris) ou options
+% ============================================================
+
+% ---- Champ 1 ligne : Lettre + filigrane + dotfill + ref grise à droite ----
+\newcommand{\acronymfieldsingleA}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!65}{\normalsize #3}}%
+  {\color{pse-ligne}\dotfill}%
+  {\textcolor{pse-gris!40}{\normalsize #4}}%
+  \par\vspace{0.5mm}%
+}
+\newcommand{\acronymfieldsingleB}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!65}{\small #3}}%
+  {\color{pse-ligne}\dotfill}%
+  {\textcolor{pse-gris!40}{\small #4}}%
+  \par\vspace{0.2mm}%
+}
+
+% ---- Champ 2 lignes : 1 ligne titre + 1 ligne pointillée pour rédaction ----
+\newcommand{\acronymfieldA}[4]{%
+  \par\noindent
+  \begin{minipage}[c][\fieldheight][t]{\linewidth}%
+    \textbf{\textcolor{#1}{\large #2}}%
+    \rlap{\textcolor{#1!65}{\normalsize #3}}%
+    {\color{pse-ligne}\dotfill}\par\nobreak
+    \noindent
+    {\color{pse-ligne}\dotfill}%
+    {\textcolor{pse-gris!40}{\normalsize #4}}%
+  \end{minipage}%
+  \par\vspace{0.5mm}%
+}
+\newcommand{\acronymfieldB}[4]{%
+  \par\noindent
+  \begin{minipage}[c][\fieldheight][t]{\linewidth}%
+    \textbf{\textcolor{#1}{\large #2}}%
+    \rlap{\textcolor{#1!65}{\small #3}}%
+    {\color{pse-ligne}\dotfill}\par\nobreak
+    \noindent
+    {\color{pse-ligne}\dotfill}%
+    {\textcolor{pse-gris!40}{\small #4}}%
+  \end{minipage}%
+  \par\vspace{0.2mm}%
+}
+
+% ---- Champ 1 ligne avec options à cocher (au lieu de la ref grise) ----
+\newcommand{\acronymfieldcheckA}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!65}{\normalsize #3}}%
+  {\color{pse-ligne}\dotfill}\;#4%
+  \par\vspace{0.5mm}%
+}
+\newcommand{\acronymfieldcheckB}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!65}{\small #3}}%
+  {\color{pse-ligne}\dotfill}\;#4%
+  \par\vspace{0.2mm}%
+}
+
+% ---- Option à cocher (utilisée dans #4 de \acronymfieldcheck) ----
+\newcommand{\optA}[1]{$\square$\,{\normalsize #1}\enspace}
+\newcommand{\optB}[1]{$\square$\,{\small #1}\enspace}
+
+% ---- Ligne libre : label en gras + pointillés (ex. Circonstances) ----
+\newcommand{\writelineA}[1]{%
+  \noindent\textbf{\normalsize #1}\enspace{\color{pse-ligne}\dotfill}\par\vspace{2.5pt}%
+}
+\newcommand{\writelineB}[1]{%
+  \noindent\textbf{\small #1}\enspace{\color{pse-ligne}\dotfill}\par\vspace{0.5pt}%
+}
+
+% ---- Sous-titre de bloc (étiquette colorée pleine, ex. PQRST, FAST...) ----
+\newcommand{\blocktitleA}[2]{%
+  \vspace{1.5mm}%
+  \noindent{\colorbox{#1}{\color{white}\bfseries\scriptsize\,#2\,}}%
+  \vspace{1.5mm}\par
+}
+\newcommand{\blocktitleB}[2]{%
+  \vspace{0.4mm}%
+  \noindent{\colorbox{#1}{\color{white}\bfseries\scriptsize\,#2\,}}%
+  \vspace{0.4mm}\par
+}
+
+% ---- Rond numéroté pour l'échelle de sévérité PQRST (0 à 10) ----
+\newcommand{\sevA}[1]{%
+  \tikz[baseline=-0.5ex]\node[draw=pse-jaune!50, circle, minimum size=5mm,
+    inner sep=0pt, font=\smallscript]{#1};\!%
+}
+\newcommand{\sevB}[1]{%
+  \tikz[baseline=-0.5ex]\node[draw=pse-jaune!50, circle, minimum size=3.5mm,
+    inner sep=0pt, font=\smallscript]{#1};\!%
+}
+
+% ============================================================
+%  DISPATCH : associe les noms publics (\acronymfield, \opt, ...) à la
+%  variante A ou B selon le format de papier sélectionné.
+% ============================================================
+\ifx\PaperFormat\PaperFormatA
+  \let\acronymfieldsingle\acronymfieldsingleA
+  \let\acronymfield\acronymfieldA
+  \let\acronymfieldcheck\acronymfieldcheckA
+  \let\opt\optA
+  \let\writeline\writelineA
+  \let\blocktitle\blocktitleA
+  \let\sev\sevA
+\else
+  \let\acronymfieldsingle\acronymfieldsingleB
+  \let\acronymfield\acronymfieldB
+  \let\acronymfieldcheck\acronymfieldcheckB
+  \let\opt\optB
+  \let\writeline\writelineB
+  \let\blocktitle\blocktitleB
+  \let\sev\sevB
+\fi
+
+% ---- Conditionnel inline pour les sections : \ifA{...A3...}{...A4...} ----
+\newcommand{\ifA}[2]{%
+  \ifx\PaperFormat\PaperFormatA #1\else #2\fi
+}

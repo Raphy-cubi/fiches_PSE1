@@ -1,0 +1,57 @@
+{
+  "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "latex-workshop.latex.search.rootFiles.include": ["main.tex"],
+  "latex-workshop.latex.recipe.default": "Build A3+A4",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex-A3",
+      "command": "pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-output-directory=build",
+        "-jobname=bilan_A3",
+        "\\def\\PaperFormat{A3}\\input{main}"
+      ]
+    },
+    {
+      "name": "pdflatex-A4",
+      "command": "pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-output-directory=build",
+        "-jobname=bilan_A4",
+        "main.tex"
+      ]
+    },
+    {
+      "name": "copy-pdfs",
+      "command": "bash",
+      "args": [
+        "-c",
+        "mkdir -p output && (mv -f build/bilan_A3.pdf output/ 2>/dev/null || true) && (mv -f build/bilan_A4.pdf output/ 2>/dev/null || true)"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "Build A3+A4",
+      "tools": ["pdflatex-A3", "pdflatex-A3", "pdflatex-A4", "pdflatex-A4", "copy-pdfs"]
+    },
+    {
+      "name": "A4 only",
+      "tools": ["pdflatex-A4", "pdflatex-A4", "copy-pdfs"]
+    },
+    {
+      "name": "A3 only",
+      "tools": ["pdflatex-A3", "pdflatex-A3", "copy-pdfs"]
+    }
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "files.associations": {
+    "*.tex": "latex"
+  }
+}

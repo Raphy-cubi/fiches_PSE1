@@ -1,0 +1,734 @@
+================================================================
+FILE: ./.latexmkrc
+================================================================
+# latexmkrc — fiches PSE1
+# Compilation pdfLaTeX, sortie auxiliaires dans build/, PDFs dans output/
+$pdf_mode = 1;
+$pdflatex = 'pdflatex -interaction=nonstopmode -synctex=1 %O %S';
+$out_dir  = 'build';
+@default_files = ('main.tex');
+$clean_ext = "synctex.gz aux log fls fdb_latexmk out toc nav snm vrb";
+
+================================================================
+FILE: ./.vscode/settings.json
+================================================================
+{
+  "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "latex-workshop.latex.search.rootFiles.include": ["main.tex"],
+  "latex-workshop.latex.recipe.default": "Build A3+A4",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex-A3",
+      "command": "pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-output-directory=build",
+        "-jobname=bilan_A3",
+        "\\def\\PaperFormat{A3}\\input{main}"
+      ]
+    },
+    {
+      "name": "pdflatex-A4",
+      "command": "pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-output-directory=build",
+        "-jobname=bilan_A4",
+        "main.tex"
+      ]
+    },
+    {
+      "name": "copy-pdfs",
+      "command": "bash",
+      "args": [
+        "-c",
+        "mkdir -p output && (cp -f build/bilan_A3.pdf output/ 2>/dev/null || true) && (cp -f build/bilan_A4.pdf output/ 2>/dev/null || true)"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "Build A3+A4",
+      "tools": ["pdflatex-A3", "pdflatex-A3", "pdflatex-A4", "pdflatex-A4", "copy-pdfs"]
+    },
+    {
+      "name": "A4 only",
+      "tools": ["pdflatex-A4", "pdflatex-A4", "copy-pdfs"]
+    },
+    {
+      "name": "A3 only",
+      "tools": ["pdflatex-A3", "pdflatex-A3", "copy-pdfs"]
+    }
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "files.associations": {
+    "*.tex": "latex"
+  }
+}
+
+================================================================
+FILE: ./Makefile
+================================================================
+BUILDDIR := build
+OUTDIR   := output
+LATEX    := pdflatex -interaction=nonstopmode -synctex=1 -output-directory=$(BUILDDIR)
+
+.PHONY: all a3 a4 clean
+
+all: a3 a4
+
+$(BUILDDIR) $(OUTDIR):
+	@mkdir -p $@
+
+a3: | $(BUILDDIR) $(OUTDIR)
+	$(LATEX) -jobname=bilan_A3 "\def\PaperFormat{A3}\input{main}"
+	$(LATEX) -jobname=bilan_A3 "\def\PaperFormat{A3}\input{main}"
+	@cp $(BUILDDIR)/bilan_A3.pdf $(OUTDIR)/bilan_A3.pdf
+
+a4: | $(BUILDDIR) $(OUTDIR)
+	$(LATEX) -jobname=bilan_A4 main.tex
+	$(LATEX) -jobname=bilan_A4 main.tex
+	@cp $(BUILDDIR)/bilan_A4.pdf $(OUTDIR)/bilan_A4.pdf
+
+clean:
+	rm -rf $(BUILDDIR)
+	rm -f $(OUTDIR)/*.pdf
+
+================================================================
+FILE: ./README.md
+================================================================
+
+================================================================
+FILE: ./main.tex
+================================================================
+% ============================================================
+%  main.tex — Fiche bilan complémentaire PSE1 (A3 / A4 paysage)
+%  Compilation :
+%    A4 (par défaut) :
+%      pdflatex -output-directory=build -jobname=bilan_A4 main.tex
+%    A3 :
+%      pdflatex -output-directory=build -jobname=bilan_A3 \
+%        "\def\PaperFormat{A3}\input{main}"
+%  Voir Makefile et .vscode/settings.json pour la compilation automatisée.
+% ============================================================
+
+% Format par défaut : A4
+\providecommand{\PaperFormat}{A4}
+
+% Sélection de la docclass + geometry selon le format
+\def\PaperFormatA{A3}
+\ifx\PaperFormat\PaperFormatA
+  \documentclass[12pt]{article}
+  \usepackage[a3paper, landscape, margin=6mm]{geometry}
+\else
+  \documentclass[9pt]{extarticle}
+  \usepackage[a4paper, landscape, margin=4mm]{geometry}
+  \setlength{\headheight}{0pt}
+  \setlength{\headsep}{0pt}
+  \setlength{\footskip}{0pt}
+  \setlength{\topmargin}{-15mm}
+  \setlength{\textheight}{200mm}
+\fi
+
+\input{inc/packages}
+\input{inc/colors}
+\input{inc/commands}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\input{src/sections/header}
+
+\vspace{\ifx\PaperFormat\PaperFormatA 1mm\else 0.3mm\fi}
+
+% ---- Corps : col gauche (Mécanisme) | zone droite (Respi/Circu | Neuro) -----
+\noindent
+\begin{minipage}[t]{0.245\linewidth}\vspace{0pt}
+  \input{src/sections/mecanisme}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.745\linewidth}\vspace{0pt}
+  \input{src/sections/xabcd}
+
+  \noindent
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}
+    \input{src/sections/respiration}
+    \input{src/sections/circulation}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}
+    \input{src/sections/neurologie}
+  \end{minipage}
+
+  \ifx\PaperFormat\PaperFormatA\vspace{1mm}\fi
+  \input{src/sections/gestes}
+  \input{src/sections/surveillance}
+\end{minipage}
+
+\end{document}
+
+================================================================
+FILE: inc/colors.tex
+================================================================
+% !TEX root = ../main.tex
+% ============================================================
+%  inc/colors.tex — Palette PSE
+% ============================================================
+
+\definecolor{pse-rouge}    {HTML}{C0392B}
+\definecolor{pse-bleu}     {HTML}{1A5276}
+\definecolor{pse-vert}     {HTML}{1E8449}
+\definecolor{pse-orange}   {HTML}{D35400}
+\definecolor{pse-jaune}    {HTML}{F39C12}
+\definecolor{pse-gris}     {HTML}{717D7E}
+\definecolor{pse-ligne}    {HTML}{BDC3C7}
+\definecolor{pse-titre-bg} {HTML}{2C3E50}
+
+================================================================
+FILE: inc/commands.tex
+================================================================
+% !TEX root = ../main.tex
+% ============================================================
+%  inc/commands.tex — Commandes utilitaires
+%  Avec branches A3 (defaut) / A4 (compactage)
+% ============================================================
+
+% Hauteur fixe d'un champ d'acronyme (2 lignes)
+\newlength{\fieldheight}
+
+% Commandes communes - definitions par defaut (A3)
+\newcommand{\smallscript}{\fontsize{8.5}{10}\selectfont}
+
+\ifx\PaperFormat\PaperFormatA
+  % --------- A3 ---------
+  \setlength{\fieldheight}{10.5mm}
+\else
+  % --------- A4 (compactage) ---------
+  \setlength{\fieldheight}{6mm}
+  \renewcommand{\smallscript}{\fontsize{6}{7}\selectfont}
+\fi
+
+% ---- Champ d'acronyme 1 ligne (ref a droite en gris) ----
+\newcommand{\acronymfieldsingleA}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!45}{\small #3}}%
+  {\color{pse-ligne}\dotfill}%
+  {\textcolor{pse-gris!40}{\small #4}}%
+  \par\vspace{1mm}%
+}
+\newcommand{\acronymfieldsingleB}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!45}{\scriptsize #3}}%
+  {\color{pse-ligne}\dotfill}%
+  {\textcolor{pse-gris!40}{\scriptsize #4}}%
+  \par\vspace{0.2mm}%
+}
+
+% ---- Champ d'acronyme 2 lignes (compact) ----
+\newcommand{\acronymfieldA}[4]{%
+  \par\noindent
+  \begin{minipage}[c][\fieldheight][t]{\linewidth}%
+    \textbf{\textcolor{#1}{\large #2}}%
+    \rlap{\textcolor{#1!45}{\small #3}}%
+    {\color{pse-ligne}\dotfill}\par\nobreak
+    \noindent
+    {\color{pse-ligne}\dotfill}%
+    {\textcolor{pse-gris!40}{\small #4}}%
+  \end{minipage}%
+  \par\vspace{1mm}%
+}
+\newcommand{\acronymfieldB}[4]{%
+  \par\noindent
+  \begin{minipage}[c][\fieldheight][t]{\linewidth}%
+    \textbf{\textcolor{#1}{\large #2}}%
+    \rlap{\textcolor{#1!45}{\scriptsize #3}}%
+    {\color{pse-ligne}\dotfill}\par\nobreak
+    \noindent
+    {\color{pse-ligne}\dotfill}%
+    {\textcolor{pse-gris!40}{\scriptsize #4}}%
+  \end{minipage}%
+  \par\vspace{0.2mm}%
+}
+
+% ---- Variante avec cases a cocher ----
+\newcommand{\acronymfieldcheckA}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!45}{\small #3}}%
+  {\color{pse-ligne}\dotfill}\;#4%
+  \par\vspace{1mm}%
+}
+\newcommand{\acronymfieldcheckB}[4]{%
+  \par\noindent
+  \textbf{\textcolor{#1}{\large #2}}%
+  \rlap{\textcolor{#1!45}{\scriptsize #3}}%
+  {\color{pse-ligne}\dotfill}\;#4%
+  \par\vspace{0.2mm}%
+}
+
+% ---- Helpers : option a cocher ----
+\newcommand{\optA}[1]{$\square$\,{\small #1}\enspace}
+\newcommand{\optB}[1]{$\square$\,{\scriptsize #1}\enspace}
+
+% ---- Ligne d'ecriture simple ----
+\newcommand{\writelineA}[1]{%
+  \noindent\textbf{\small #1}\enspace{\color{pse-ligne}\dotfill}\par\vspace{2.5pt}%
+}
+\newcommand{\writelineB}[1]{%
+  \noindent\textbf{\scriptsize #1}\enspace{\color{pse-ligne}\dotfill}\par\vspace{0.5pt}%
+}
+
+% ---- Sous-titre de bloc ----
+\newcommand{\blocktitleA}[2]{%
+  \vspace{1.5mm}%
+  \noindent{\colorbox{#1}{\color{white}\bfseries\scriptsize\,#2\,}}%
+  \vspace{1.5mm}\par
+}
+\newcommand{\blocktitleB}[2]{%
+  \vspace{0.4mm}%
+  \noindent{\colorbox{#1}{\color{white}\bfseries\scriptsize\,#2\,}}%
+  \vspace{0.4mm}\par
+}
+
+% ---- Rond numerote pour echelle de severite (0-10) ----
+\newcommand{\sevA}[1]{%
+  \tikz[baseline=-0.5ex]\node[draw=pse-jaune!50, circle, minimum size=5mm,
+    inner sep=0pt, font=\smallscript]{#1};\!%
+}
+\newcommand{\sevB}[1]{%
+  \tikz[baseline=-0.5ex]\node[draw=pse-jaune!50, circle, minimum size=3.5mm,
+    inner sep=0pt, font=\smallscript]{#1};\!%
+}
+
+% ---- Dispatch selon le format ----
+\ifx\PaperFormat\PaperFormatA
+  \let\acronymfieldsingle\acronymfieldsingleA
+  \let\acronymfield\acronymfieldA
+  \let\acronymfieldcheck\acronymfieldcheckA
+  \let\opt\optA
+  \let\writeline\writelineA
+  \let\blocktitle\blocktitleA
+  \let\sev\sevA
+\else
+  \let\acronymfieldsingle\acronymfieldsingleB
+  \let\acronymfield\acronymfieldB
+  \let\acronymfieldcheck\acronymfieldcheckB
+  \let\opt\optB
+  \let\writeline\writelineB
+  \let\blocktitle\blocktitleB
+  \let\sev\sevB
+\fi
+
+% ============================================================
+%  Helpers conditionnels A3/A4 utilisables dans les sections
+% ============================================================
+% \ifA{...A3...}{...A4...}
+\newcommand{\ifA}[2]{%
+  \ifx\PaperFormat\PaperFormatA #1\else #2\fi
+}
+
+================================================================
+FILE: inc/packages.tex
+================================================================
+% !TEX root = ../main.tex
+% ============================================================
+%  inc/packages.tex — Packages communs
+% ============================================================
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Mise en page
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+% Graphiques / boîtes
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, most}
+\usepackage{tikz}
+
+% Typographie
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{etoolbox}
+
+% Layout / pagination
+\setlength{\parindent}{0pt}
+
+================================================================
+FILE: src/sections/circulation.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/circulation.tex — CIRCULATION FARATT
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-orange!8, colframe=pse-orange,
+  title={\faHeartbeat\enspace CIRCULATION — FARATT},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\acronymfieldsingle{pse-orange}{F}{réquence}{A\,:\,60–100\,bpm, E\,:\,70-140\,bpm, N\,:\,100-160\,bpm, NN\,:\,120-160\,bpm}
+\acronymfieldcheck{pse-orange}{A}{mplitude}{\opt{Bien frappée}\opt{Filante}}
+\acronymfieldcheck{pse-orange}{R}{égularité}{\opt{Régulier}\opt{Irrégulier} \opt{Symétrique} \opt{Asymétrique} \opt{G} \opt{D}}
+\acronymfield{pse-orange}{A}{spect peau}{pâleur, cyanose, marbrures, froid}
+\acronymfieldsingle{pse-orange}{T}{RC}{N : $\leq$ 2\,s}
+\acronymfield{pse-orange}{T}{ension Artérielle}{N : 90–140 systolique | 60–90\,mmHg diastolique }
+
+\ifA{\vspace{1mm}}{}
+\acronymfieldsingle{pse-orange}{T}{empérature}{méthode, correction | hypo<35, fièvre>37.8, hyper>40\textdegree C}
+
+\end{tcolorbox}
+
+================================================================
+FILE: src/sections/gestes.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/gestes.tex — GESTES EFFECTUES
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-gris!8, colframe=pse-gris,
+  title={\faMedkit\enspace GESTES EFFECTUÉS},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1mm, bottom=1mm, left=2mm, right=2mm,
+]
+\smallscript
+\ifx\PaperFormat\PaperFormatA\def\gestcol{0.19\linewidth}\else\def\gestcol{0.183\linewidth}\fi
+\begin{tabular}{@{}p{\gestcol}|p{\gestcol}|p{\gestcol}|p{\gestcol}|p{\gestcol}@{}}
+
+\textbf{\textcolor{pse-vert}{LVAS}} \newline
+$\square$ Aspiration mucosités \newline
+$\square$ Canule oropharyngée \newline
+$\square$ Désobstr. (claques) : \hrulefill \newline
+$\square$ Désobstr. (compr. abd.) : \hrulefill \newline
+$\square$ Bascule tête / subluxation
+&
+\textbf{\textcolor{pse-rouge}{ACR}} \newline
+$\square$ RCP (compr. thorac.) : \hrulefill \newline
+$\square$ DAE : \enspace\hrulefill\, h \,\hrulefill\enspace Chocs : \hrulefill \newline
+$\square$ Ventil. (insufflateur) : \hrulefill \newline
+$\square$ Ventil. (bouche-à-bouche) \newline
+$\square$ Administration O\textsubscript{2}
+&
+\textbf{\textcolor{pse-bleu}{TRAUMATISMES}} \newline
+$\square$ Collier cervical \newline
+$\square$ Maintien tête pos. neutre \newline
+$\square$ Retrait casque \newline
+$\square$ Attelle modulable \newline
+$\square$ Immobilisation écharpes
+&
+\textbf{\textcolor{pse-orange}{PLAIES / BRÛLURES}} \newline
+$\square$ Compression manuelle \newline
+$\square$ Pansement compressif \newline
+$\square$ Garrot : \enspace\hrulefill\, h \,\hrulefill \newline
+$\square$ Pansement stérile : \hrulefill \newline
+$\square$ Refroidissement (brûlure)
+&
+\textbf{\textcolor{pse-jaune}{POSITIONS}} \newline
+$\square$ PLS \newline
+$\square$ Position demi-assise \newline
+$\square$ Allongée \newline
+$\square$ Réchauffement victime \newline
+$\square$ Autre : \hrulefill
+
+\\
+\end{tabular}
+\end{tcolorbox}
+
+================================================================
+FILE: src/sections/header.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/header.tex — Bandeau identite victime
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-titre-bg, colframe=pse-titre-bg,
+  arc=0mm, boxrule=0pt,
+  top=\ifA{1.5mm}{3.5mm}, bottom=\ifA{1.5mm}{0.5mm}, left=4mm, right=4mm,
+]
+  \color{white}\ifA{\small}{\normalsize}
+  \ifA{%
+    \textbf{\large FICHE BILAN}%
+  }{%
+    \smash{\raisebox{-0.5mm}{\bfseries\sffamily\fontsize{19}{21}\selectfont FICHE BILAN}}%
+  }\hfill
+  \ifA{%
+    \begin{tabular}{@{}p{100mm} p{24mm} p{30mm} p{30mm} p{30mm} p{40mm}@{}}
+      \textbf{Nom :}\enspace\dotfill &
+      \textbf{Âge :}\enspace\dotfill &
+      \textbf{Sexe :}\;$\square$ H\;$\square$ F &
+      \textbf{Taille :}\enspace\dotfill &
+      \textbf{Poids :}\enspace\dotfill &
+      \textbf{Heure :}\enspace\dotfill
+    \end{tabular}
+  }{%
+    \begin{tabular}{@{}p{68mm} p{25mm} p{30mm} p{25mm} p{25mm} p{30mm}@{}}
+      \textbf{Nom :}\enspace\dotfill &
+      \textbf{Âge :}\enspace\dotfill &
+      \textbf{Sexe :}\;$\square$ H\;$\square$ F &
+      \textbf{Taille :}\enspace\dotfill &
+      \textbf{Poids :}\enspace\dotfill &
+      \textbf{Heure :}\enspace\dotfill
+    \end{tabular}
+  }\\[1mm]
+  \begin{tabular}{@{}p{0.55\linewidth} p{0.42\linewidth}@{}}
+    \textbf{Adresse :}\enspace\dotfill &
+    \textbf{ N\textsuperscript{o} de contact :}\enspace\dotfill
+  \end{tabular}
+\end{tcolorbox}
+
+================================================================
+FILE: src/sections/mecanisme.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/mecanisme.tex — Colonne gauche
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-jaune!8, colframe=pse-jaune,
+  title={\faSearch\enspace MÉCANISME \& ANAMNÈSE},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\blocktitle{pse-jaune}{Mécanisme}
+\writeline{Circonstances :}
+\writeline{}
+\writeline{}
+\writeline{}
+
+\blocktitle{pse-jaune}{PQRST — Douleur}
+\acronymfield{pse-jaune}{P}{rovoquée / Palliée par}{}
+\acronymfield{pse-jaune}{Q}{ualité}{type de douleur}
+\acronymfield{pse-jaune}{R}{égion / Irradiation}{}
+% Severite en ronds numerotes
+\par\noindent
+\textbf{\textcolor{pse-jaune}{\large S}}%
+\rlap{\textcolor{pse-jaune!45}{\small évérité}}%
+\hfill\sev{0}  \sev{1}  \sev{2}  \sev{3}  \sev{4}  \sev{5}  \sev{6}  \sev{7}  \sev{8}  \sev{9}  \sev{10}%
+\par\vspace{0.5mm}%
+\acronymfield{pse-jaune}{T}{emps}{début, durée, évolution}
+
+\blocktitle{pse-jaune}{SAMPLE V — Anamnèse}
+\acronymfield{pse-jaune}{S}{ignes et symptômes}{}
+\acronymfield{pse-jaune}{A}{llergies connues}{}
+\acronymfield{pse-jaune}{M}{édicaments en cours}{}
+\acronymfield{pse-jaune}{P}{assé médical}{}
+\acronymfield{pse-jaune}{L}{ast meal}{dernier repas, heure}
+\acronymfield{pse-jaune}{E}{vénement déclencheur}{activité, stress, substances\ldots}
+\acronymfield{pse-jaune}{V}{accins}{}
+
+\blocktitle{pse-jaune}{MATH F — Antécédents}
+\acronymfield{pse-jaune}{M}{aladie}{}
+\acronymfield{pse-jaune}{A}{llergies}{}
+\acronymfield{pse-jaune}{T}{raitement}{grossesse, handicap\ldots}
+\acronymfield{pse-jaune}{H}{ospitalisations récentes}{}
+\acronymfield{pse-jaune}{F}{amille}{}
+
+\end{tcolorbox}
+
+================================================================
+FILE: src/sections/neurologie.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/neurologie.tex — NEUROLOGIQUE OMSPGG + FAST + Glasgow + EVDA
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-bleu!8, colframe=pse-bleu,
+  title={\faBrain\enspace NEUROLOGIQUE — OMSPGG},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\acronymfield{pse-bleu}{O}{rientation}{temps, lieu, identité, mémoire}
+\acronymfieldsingle{pse-bleu}{M}{otricité}{mouvement spontanée, forcée, sensibilité}
+\acronymfieldsingle{pse-bleu}{S}{ensibilité}{touché, douleur, température}
+\acronymfieldsingle{pse-bleu}{P}{upilles}{isocorie, réactivité, mydriase (OO), myosis ($\cdot$$\cdot$)}
+\acronymfieldsingle{pse-bleu}{G}{lasgow}{Y(4) + V(5) + M(6) = /15}
+\acronymfieldsingle{pse-bleu}{G}{lycémie}{N : 0,8–1,2\,g/L | 3,3–6,6\,mmol/L}
+
+\ifA{\vspace{1mm}}{}
+\blocktitle{pse-rouge}{FAST — Suspicion AVC}
+\acronymfieldsingle{pse-rouge}{F}{ace}{asymétrie, déviation}
+\acronymfieldsingle{pse-rouge}{A}{rm}{faiblesse, paralysie}
+\acronymfieldsingle{pse-rouge}{S}{peech}{trouble parole / compréhension}
+\acronymfieldsingle{pse-rouge}{T}{ime}{heure début des signes}
+
+\ifA{\vspace{1mm}}{}
+\blocktitle{pse-bleu}{Rappel Glasgow}
+
+{\smallscript
+\renewcommand{\arraystretch}{1.15}
+\ifx\PaperFormat\PaperFormatA\def\glasgownum{4mm}\else\def\glasgownum{3mm}\fi
+\begin{tabular}{@{}|>{\centering\arraybackslash}p{\glasgownum}|l|>{\centering\arraybackslash}p{\glasgownum}|l|>{\centering\arraybackslash}p{\glasgownum}|l|@{}}
+\hline
+\rowcolor{pse-bleu!15}
+\multicolumn{2}{@{}|c|}{\textbf{\textcolor{pse-bleu}{Yeux (Y)}}} &
+\multicolumn{2}{c|}{\textbf{\textcolor{pse-bleu}{Verbal (V)}}} &
+\multicolumn{2}{c|}{\textbf{\textcolor{pse-bleu}{Moteur (M)}}} \\
+\hline
+4 & Spontanée       & 5 & Orientée          & 6 & Obéit aux ordres \\
+\hline
+3 & À la demande    & 4 & Confuse           & 5 & Orientée \\
+\hline
+2 & À la douleur    & 3 & Inappropriée      & 4 & Évitement \\
+\hline
+1 & Aucune          & 2 & Incompréhensible  & 3 & Flexion anormale \\
+\hline
+\cellcolor{pse-bleu} & \cellcolor{pse-bleu} & 1 & Aucune            & 2 & Extension \\
+\hline
+\cellcolor{pse-bleu} & \cellcolor{pse-bleu} & \cellcolor{pse-bleu} & \cellcolor{pse-bleu} & 1 & Aucune \\
+\hline
+\end{tabular}
+}
+
+\ifA{%
+  \vspace{1mm}
+  \blocktitle{pse-bleu}{Rappel EVDA}
+  \begin{tabularx}{\linewidth}{@{}X X X p{45mm}@{}}
+    \acronymfieldsingle{pse-bleu}{E}{veil}{Alert} &
+    \acronymfieldsingle{pse-bleu}{V}{oix}{Verbal} &
+    \acronymfieldsingle{pse-bleu}{D}{ouleur}{Pain} &
+    \acronymfieldsingle{pse-bleu}{A}{réactive}{Unresponsive}
+  \end{tabularx}
+}{%
+  \vspace{0.4mm}\noindent
+  {\colorbox{pse-bleu}{\color{white}\bfseries\scriptsize\,Rappel EVDA\,}}\enspace
+  {\small\textbf{\textcolor{pse-bleu}{E}}veil\enspace\textbf{\textcolor{pse-bleu}{V}}oix\enspace\textbf{\textcolor{pse-bleu}{D}}ouleur\enspace\textbf{\textcolor{pse-bleu}{A}}réactive}
+  \par
+}
+\end{tcolorbox}
+
+================================================================
+FILE: src/sections/respiration.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/respiration.tex — RESPIRATION FARASS
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-vert!8, colframe=pse-vert,
+  title={\faLungs\enspace RESPIRATION — FARASS},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\acronymfieldsingle{pse-vert}{F}{réquence}{A\,:\,12–20, E\,:\,20–30, N\,:\,30–40, NN\,:\,40–60 mvt/min}
+\acronymfieldcheck{pse-vert}{A}{mplitude}{\opt{Profonde} \opt{Normale} \opt{Superficielle}}
+\acronymfieldcheck{pse-vert}{R}{égularité}{\opt{Régulière} \opt{Irrégulière}}
+\acronymfield{pse-vert}{A}{spect}{cyanose, sueurs, bruits}
+\acronymfieldsingle{pse-vert}{S}{pO\textsubscript{2}}{N\,:\,94–100\,\%, IRC\,:\,89–94\,\%}
+\acronymfield{pse-vert}{S}{ymetrie}{tirage, balancement}
+
+\ifA{\vspace{1mm}}{}
+\acronymfieldsingle{pse-vert}{O}{\textsubscript{2}}{N\,:\,15\,L/min}
+\acronymfieldcheck{pse-vert}{M}{asque}{\opt{MHC (9–15\,L/min)} \opt{MMC(6–9\,L/min)} \opt{Lunettes(1–6\,L/min)}}
+
+\end{tcolorbox}
+
+\ifA{\vspace{1mm}}{}
+
+================================================================
+FILE: src/sections/surveillance.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/surveillance.tex — Tableau SURVEILLANCE
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-titre-bg!5, colframe=pse-titre-bg,
+  title={\faClock\enspace SURVEILLANCE},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1mm, bottom=1mm, left=2mm, right=2mm,
+]
+\smallscript
+\renewcommand{\arraystretch}{\ifA{1.25}{1.1}}
+\begin{tabularx}{\linewidth}{@{}|>{\bfseries}l|*{6}{>{\centering\arraybackslash}X|}@{}}
+\hline
+\rowcolor{pse-titre-bg!15}
+\textbf{Paramètre} & \textbf{Initial} & \textbf{T+5} & \textbf{T+10} & \textbf{T+15} & \textbf{T+20} & \textbf{T+\rule{5mm}{0.4pt}} \\
+\hline
+\textcolor{pse-vert}{FR} (bpm) & & & & & & \\
+\hline
+\textcolor{pse-vert}{SpO\textsubscript{2}} (\%) & & & & & & \\
+\hline
+\textcolor{pse-orange}{Pouls} (mpm) & & & & & & \\
+\hline
+\textcolor{pse-orange}{TA} (mmHg) & & & & & & \\
+\hline
+\textcolor{pse-orange}{TRC} (s) & & & & & & \\
+\hline
+\textcolor{pse-bleu}{GCS} (/15) & & & & & & \\
+\hline
+\textcolor{pse-bleu}{Pupilles} & & & & & & \\
+\hline
+\textcolor{pse-bleu}{Glycémie} (g/L|mol) & & & & & & \\
+\hline
+\textcolor{pse-orange}{T\textdegree} (\textdegree C) & & & & & & \\
+\hline
+\end{tabularx}
+\end{tcolorbox}
+
+================================================================
+FILE: src/sections/xabcd.tex
+================================================================
+% !TEX root = ../../main.tex
+% ============================================================
+%  src/sections/xabcd.tex — Rappel 2e regard XABCD
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-rouge!8, colframe=pse-rouge,
+  title={\faExclamationTriangle\enspace 2\textsuperscript{e} REGARD — XABCD \textit{\small(ce qui tue en premier)}},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=0.5mm, bottom=0.5mm, left=2mm, right=2mm,
+]
+\small
+\renewcommand{\arraystretch}{1.0}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\ifx\PaperFormat\PaperFormatA\def\xabcdletter{8mm}\else\def\xabcdletter{4mm}\fi
+\begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}}
+  \textbf{\textcolor{pse-rouge}{\Large X}} &
+  \textbf{Hémorragie} \newline {\smallscript Compression, garrot} &
+  \textbf{\textcolor{pse-rouge}{\Large A}} &
+  \textbf{Voies aériennes} \newline {\smallscript libération des voies aériennes} &
+  \textbf{\textcolor{pse-rouge}{\Large B}} &
+  \textbf{Respiration} \newline {\smallscript Regarder, écouter, sentir} &
+  \textbf{\textcolor{pse-rouge}{\Large C}} &
+  \textbf{Circulation} \newline {\smallscript Pouls, TRC, \ifA{pâleur, marbrures}{marbrures}} &
+  \textbf{\textcolor{pse-rouge}{\Large D}} &
+  \textbf{Neurologie} \newline {\smallscript Conscience (AVPU), pupilles} \\
+\end{tabularx}
+\end{tcolorbox}
+

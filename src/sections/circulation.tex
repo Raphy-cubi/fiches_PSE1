@@ -1,0 +1,28 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/circulation.tex
+%  Rôle    : Bilan circulatoire — FARATT (Fréquence, Amplitude,
+%            Régularité, Aspect peau, TRC, Tension Artérielle)
+%            + relevé de Température.
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-orange!4, colframe=pse-orange,
+  title={\faHeartbeat\enspace CIRCULATION — FARATT},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\acronymfieldsingle{pse-orange}{F}{réquence}{A\,:\,60–100\,bpm, E\,:\,70-140\,bpm, N\,:\,100-160\,bpm, NN\,:\,120-160\,bpm}
+\acronymfieldcheck{pse-orange}{A}{mplitude}{\opt{Bien frappée}\opt{Filante}}
+\acronymfieldcheck{pse-orange}{R}{égularité}{\opt{Régulier}\opt{Irrégulier} \opt{Sym.} \opt{Asym.} \opt{G} \opt{D}}
+\acronymfield{pse-orange}{A}{spect peau}{pâleur, cyanose, marbrures, froid}
+\acronymfieldsingle{pse-orange}{T}{RC}{N : $\leq$ 2\,s}
+\acronymfield{pse-orange}{T}{ension Artérielle}{N : 90–140 systolique | 60–90\,mmHg diastolique }
+
+\ifA{\vspace{1mm}}{}
+\acronymfieldsingle{pse-orange}{T}{empérature}{méthode, correction | hypo<35, fièvre>37.8, hyper>40\textdegree C}
+
+\end{tcolorbox}

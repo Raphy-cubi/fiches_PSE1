@@ -1,21 +1,72 @@
 % ============================================================
-%  main.tex — Document principal PSE1
-%  Compile avec : pdflatex main.tex  (ou lualatex / xelatex)
+%  Fiches PSE1 — Bilan complémentaire (4e regard) · v0.2
+%  Fichier : main.tex
+%  Rôle    : Point d'entrée unique. Produit bilan_A3.pdf ou bilan_A4.pdf
+%            selon la valeur de \PaperFormat (A4 par défaut).
+%
+%  Compilation :
+%    A4 :  pdflatex -output-directory=build -jobname=bilan_A4 main.tex
+%    A3 :  pdflatex -output-directory=build -jobname=bilan_A3 \
+%            "\def\PaperFormat{A3}\input{main}"
+%    Auto : voir Makefile, .latexmkrc, .vscode/settings.json
 % ============================================================
-\documentclass[12pt]{article}
-\usepackage[a3paper, landscape, margin=6mm]{geometry}
 
-% Configuration globale (couleurs, packages, commandes)
-\input{config}
+% ---- Format de papier (overridable depuis la ligne de commande) ----
+\providecommand{\PaperFormat}{A4}
+\def\PaperFormatA{A3}
+
+% ---- Sélection docclass + geometry selon le format ----
+\ifx\PaperFormat\PaperFormatA
+  % A3 paysage : police 12pt, marges plus larges
+  \documentclass[12pt]{article}
+  \usepackage[a3paper, landscape, top=6mm, bottom=4mm, left=6mm, right=6mm,
+              nohead, nofoot]{geometry}
+\else
+  % A4 paysage : extarticle 9pt pour pouvoir compacter le contenu
+  \documentclass[9pt]{extarticle}
+  \usepackage[a4paper, landscape, top=6mm, bottom=2mm, left=4mm, right=4mm,
+              nohead, nofoot]{geometry}
+\fi
+
+% ---- Includes communs ----
+\input{inc/packages}   % packages LaTeX
+\input{inc/colors}     % palette PSE
+\input{inc/commands}   % \acronymfield*, \opt, \sev, \blocktitle, \writeline, \ifA
+
+% ---- Réglages de mise en page ----
+\pagestyle{empty}
+\setlength{\topskip}{0pt}    % colle le contenu en haut de page
+\setlength{\parskip}{0pt}    % pas d'écart de paragraphe par défaut
 
 % ============================================================
 \begin{document}
 
-% ---- Fiche 1 : Bilan complémentaire (4e regard) ----
-\input{fiches_tex/bilan_complementaire_A3}
+% Bandeau identité victime (pleine largeur)
+\input{src/sections/header}
 
-% ---- Ajouter d'autres fiches ici ----
-% \newpage
-% \input{fiches/ma_prochaine_fiche}
+\vspace{\ifx\PaperFormat\PaperFormatA 1mm\else 0.3mm\fi}
+
+% ---- Corps : col gauche (Mécanisme) | zone droite (XABCD, Respi/Circu, Neuro, Gestes, Suivi) ----
+\noindent
+\begin{minipage}[t]{0.245\linewidth}\vspace{0pt}
+  \input{src/sections/mecanisme}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.745\linewidth}\vspace{0pt}
+  \input{src/sections/xabcd}
+
+  % Sous-zone : Respi+Circu (gauche) | Neuro+FAST+Glasgow+EVDA (droite)
+  \noindent
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}
+    \input{src/sections/respiration}
+    \input{src/sections/circulation}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\vspace{0pt}
+    \input{src/sections/neurologie}
+  \end{minipage}
+
+  \ifx\PaperFormat\PaperFormatA\vspace{1mm}\fi
+  \input{src/sections/gestes}
+  \input{src/sections/surveillance}
+\end{minipage}
 
 \end{document}

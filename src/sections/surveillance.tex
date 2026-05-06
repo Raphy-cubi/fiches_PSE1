@@ -1,0 +1,43 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/surveillance.tex
+%  Rôle    : Tableau de surveillance dans le temps. Lignes : FR,
+%            SpO2, Pouls, TA, TRC, GCS, Pupilles, Glycémie, T°.
+%            Colonnes : Initial + 5 relevés horodatés (T+__).
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-titre-bg!5, colframe=pse-titre-bg,
+  title={\faClock\enspace SURVEILLANCE},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1mm, bottom=1mm, left=2mm, right=2mm,
+]
+\smallscript
+\renewcommand{\arraystretch}{\ifA{1.25}{1.1}}
+\begin{tabularx}{\linewidth}{@{}|>{\bfseries}l|*{6}{>{\centering\arraybackslash}X|}@{}}
+\hline
+\rowcolor{pse-titre-bg!15}
+\textbf{Paramètre} & \textbf{Initial} & \textbf{T+\rule{5mm}{0.4pt}} & \textbf{T+\rule{5mm}{0.4pt}} & \textbf{T+\rule{5mm}{0.4pt}} & \textbf{T+\rule{5mm}{0.4pt}} & \textbf{T+\rule{5mm}{0.4pt}} \\
+\hline
+\textcolor{pse-vert}{FR} (bpm) & & & & & & \\
+\hline
+\textcolor{pse-vert}{SpO\textsubscript{2}} (\%) & & & & & & \\
+\hline
+\textcolor{pse-orange}{Pouls} (mpm) & & & & & & \\
+\hline
+\textcolor{pse-orange}{TA} (mmHg) & & & & & & \\
+\hline
+\textcolor{pse-orange}{TRC} (s) & & & & & & \\
+\hline
+\textcolor{pse-bleu}{GCS} (/15) & & & & & & \\
+\hline
+\textcolor{pse-bleu}{Pupilles} & & & & & & \\
+\hline
+\textcolor{pse-bleu}{Glycémie} (g/L|mol) & & & & & & \\
+\hline
+\textcolor{pse-orange}{T\textdegree} (\textdegree C) & & & & & & \\
+\hline
+\end{tabularx}
+\end{tcolorbox}

@@ -1,0 +1,58 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/gestes.tex
+%  Rôle    : Récapitulatif des gestes effectués sur la victime,
+%            5 colonnes : LVAS, ACR, Traumatismes, Plaies/Brûlures,
+%            Positions. Cases à cocher + champs libres (\hrulefill).
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-gris!4, colframe=pse-gris,
+  title={\faMedkit\enspace GESTES EFFECTUÉS},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=1mm, bottom=1mm, left=2mm, right=2mm,
+]
+\smallscript
+\ifx\PaperFormat\PaperFormatA\def\gestcol{0.19\linewidth}\else\def\gestcol{0.183\linewidth}\fi
+\begin{tabular}{@{}p{\gestcol}|p{\gestcol}|p{\gestcol}|p{\gestcol}|p{\gestcol}@{}}
+
+\textbf{\textcolor{pse-vert}{LVAS}} \newline
+$\square$ Aspiration mucosités \newline
+$\square$ Canule oropharyngée \newline
+$\square$ Désobstr. (claques) : \hrulefill \newline
+$\square$ Désobstr. (compr. abd.) : \hrulefill \newline
+$\square$ Bascule tête / subluxation
+&
+\textbf{\textcolor{pse-rouge}{ACR}} \newline
+$\square$ RCP (compr. thorac.) : \hrulefill \newline
+$\square$ DAE : \enspace\hrulefill\, h \,\hrulefill\enspace Chocs : \hrulefill \newline
+$\square$ Ventil. (insufflateur) : \hrulefill \newline
+$\square$ Ventil. (bouche-à-bouche) \newline
+$\square$ Administration O\textsubscript{2}
+&
+\textbf{\textcolor{pse-bleu}{TRAUMATISMES}} \newline
+$\square$ Collier cervical \newline
+$\square$ Maintien tête pos. neutre \newline
+$\square$ Retrait casque \newline
+$\square$ Attelle modulable \newline
+$\square$ Immobilisation écharpes
+&
+\textbf{\textcolor{pse-orange}{PLAIES / BRÛLURES}} \newline
+$\square$ Compression manuelle \newline
+$\square$ Pansement compressif \newline
+$\square$ Garrot : \enspace\hrulefill\, h \,\hrulefill \newline
+$\square$ Pansement stérile : \hrulefill \newline
+$\square$ Refroidissement (brûlure)
+&
+\textbf{\textcolor{pse-jaune}{POSITIONS}} \newline
+$\square$ PLS \newline
+$\square$ Position demi-assise \newline
+$\square$ Allongée \newline
+$\square$ Réchauffement victime \newline
+$\square$ Autre : \hrulefill
+
+\\
+\end{tabular}
+\end{tcolorbox}

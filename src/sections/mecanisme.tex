@@ -1,0 +1,65 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/mecanisme.tex
+%  Rôle    : Colonne de gauche — Mécanisme & Anamnèse :
+%              · Circonstances (4 lignes libres)
+%              · PQRST — Douleur (sévérité 0-10 en ronds)
+%              · SAMPLE V — Anamnèse
+%              · MATH F — Antécédents
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-jaune!4, colframe=pse-jaune,
+  title={\faSearch\enspace MÉCANISME \& ANAMNÈSE},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\blocktitle{pse-jaune}{Mécanisme}
+\writeline{Circonstances :}
+\writeline{}
+\writeline{}
+\writeline{}
+\writeline{}
+
+\ifA{}{\vspace{2mm}}
+\blocktitle{pse-jaune}{PQRST — Douleur}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{P}{rovoquée / Palliée par}{}
+\acronymfield{pse-jaune}{Q}{ualité}{type de douleur}
+\acronymfield{pse-jaune}{R}{égion / Irradiation}{}
+% Severite en ronds numerotes
+\par\noindent
+\textbf{\textcolor{pse-jaune}{\large S}}%
+\rlap{\textcolor{pse-jaune!45}{\small évérité}}%
+\hfill\sev{0}  \sev{1}  \sev{2}  \sev{3}  \sev{4}  \sev{5}  \sev{6}  \sev{7}  \sev{8}  \sev{9}  \sev{10}%
+\par\vspace{0.5mm}%
+\acronymfield{pse-jaune}{T}{emps}{début, durée, évolution}
+
+\ifA{}{\vspace{2mm}}
+\blocktitle{pse-jaune}{SAMPLE V — Anamnèse}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{S}{ignes et symptômes}{}
+\acronymfield{pse-jaune}{A}{llergies connues}{}
+\acronymfield{pse-jaune}{M}{édicaments en cours}{}
+\acronymfield{pse-jaune}{P}{assé médical}{}
+\acronymfield{pse-jaune}{L}{ast meal}{dernier repas, heure}
+\acronymfield{pse-jaune}{E}{vénement déclencheur}{activité, stress, substances}
+\acronymfield{pse-jaune}{V}{accins}{}
+
+\ifA{}{\vspace{2mm}}
+\blocktitle{pse-jaune}{MATH F — Antécédents}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{M}{aladie}{}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{A}{llergies}{}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{T}{raitement}{grossesse, handicap}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{H}{ospitalisations récentes}{}
+\ifA{}{\vspace{1mm}}
+\acronymfield{pse-jaune}{F}{amille}{}
+
+\end{tcolorbox}

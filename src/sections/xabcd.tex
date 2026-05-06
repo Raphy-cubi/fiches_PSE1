@@ -1,0 +1,33 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/xabcd.tex
+%  Rôle    : Rappel du 2e regard — XABCD (« ce qui tue en premier »).
+%            5 colonnes : eXsanguination, Airway, Breathing, Circulation,
+%            Disability, avec pour chacune les signes à rechercher.
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-rouge!4, colframe=pse-rouge,
+  title={\faExclamationTriangle\enspace 2\textsuperscript{e} REGARD — XABCD \textit{\small(ce qui tue en premier)}},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=0.5mm, bottom=0.5mm, left=2mm, right=2mm,
+]
+\small
+\renewcommand{\arraystretch}{1.0}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\ifx\PaperFormat\PaperFormatA\def\xabcdletter{8mm}\else\def\xabcdletter{4mm}\fi
+\begin{tabularx}{\linewidth}{@{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}>{\centering\arraybackslash}m{\xabcdletter} X @{}}
+  \textbf{\textcolor{pse-rouge}{\Large X}} &
+  \textbf{Hémorragie} \newline {\smallscript Compression, garrot} &
+  \textbf{\textcolor{pse-rouge}{\Large A}} &
+  \textbf{Voies aériennes} \newline {\smallscript libération des voies aériennes} &
+  \textbf{\textcolor{pse-rouge}{\Large B}} &
+  \textbf{Respiration} \newline {\smallscript Regarder, écouter, sentir} &
+  \textbf{\textcolor{pse-rouge}{\Large C}} &
+  \textbf{Circulation} \newline {\smallscript Pouls, TRC, \ifA{pâleur, marbrures}{marbrures}} &
+  \textbf{\textcolor{pse-rouge}{\Large D}} &
+  \textbf{Neurologie} \newline {\smallscript Conscience (AVPU), pupilles} \\
+\end{tabularx}
+\end{tcolorbox}

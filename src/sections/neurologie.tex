@@ -1,0 +1,72 @@
+% !TEX root = ../../main.tex
+% ============================================================
+%  Fiches PSE1 — Bilan complémentaire · v0.2
+%  Fichier : src/sections/neurologie.tex
+%  Rôle    : Bilan neurologique :
+%              · OMSPGG (Orientation, Motricité, Sensibilité,
+%                Pupilles, Glasgow, Glycémie)
+%              · FAST  — Suspicion AVC
+%              · Rappel Glasgow (tableau Y/V/M)
+%              · Rappel EVDA (échelle Eveil/Voix/Douleur/Aréactive)
+% ============================================================
+
+\begin{tcolorbox}[
+  colback=pse-bleu!4, colframe=pse-bleu,
+  title={\faBrain\enspace NEUROLOGIQUE — OMSPGG},
+  coltitle=white, fonttitle=\bfseries\small,
+  arc=2mm, boxrule=1pt,
+  top=\ifA{1.5mm}{1mm}, bottom=\ifA{1.5mm}{1mm}, left=1.5mm, right=1.5mm,
+]
+
+\acronymfield{pse-bleu}{O}{rientation}{temps, lieu, identité, mémoire}
+\acronymfieldsingle{pse-bleu}{M}{otricité}{mouvement spontanée, forcée, sensibilité}
+\acronymfieldsingle{pse-bleu}{S}{ensibilité}{touché, douleur, température}
+\acronymfieldsingle{pse-bleu}{P}{upilles}{isocorie, réactivité, mydriase (OO), myosis ($\cdot$$\cdot$)}
+\acronymfieldsingle{pse-bleu}{G}{lasgow}{Y(4) + V(5) + M(6) = /15}
+\acronymfieldsingle{pse-bleu}{G}{lycémie}{N : 0,8–1,2\,g/L | 3,3–6,6\,mmol/L}
+
+\ifA{\vspace{1mm}}{}
+\blocktitle{pse-rouge}{FAST — Suspicion AVC}
+\acronymfieldsingle{pse-rouge}{F}{ace}{asymétrie, déviation}
+\acronymfieldsingle{pse-rouge}{A}{rm}{faiblesse, paralysie}
+\acronymfieldsingle{pse-rouge}{S}{peech}{trouble parole / compréhension}
+\acronymfieldsingle{pse-rouge}{T}{ime}{heure début des signes}
+
+\ifA{\vspace{1mm}}{}
+\blocktitle{pse-bleu}{Rappel Glasgow}
+
+{\smallscript
+\renewcommand{\arraystretch}{1.15}
+\ifx\PaperFormat\PaperFormatA\def\glasgownum{4mm}\else\def\glasgownum{3mm}\fi
+\begin{tabular}{@{}|>{\centering\arraybackslash}p{\glasgownum}|l|>{\centering\arraybackslash}p{\glasgownum}|l|>{\centering\arraybackslash}p{\glasgownum}|l|@{}}
+\hline
+\rowcolor{pse-bleu!15}
+\multicolumn{2}{@{}|c|}{\textbf{\textcolor{pse-bleu}{Yeux (Y)}}} &
+\multicolumn{2}{c|}{\textbf{\textcolor{pse-bleu}{Verbal (V)}}} &
+\multicolumn{2}{c|}{\textbf{\textcolor{pse-bleu}{Moteur (M)}}} \\
+\hline
+4 & Spontanée       & 5 & Orientée          & 6 & Obéit aux ordres \\
+\hline
+3 & À la demande    & 4 & Confuse           & 5 & Orientée \\
+\hline
+2 & À la douleur    & 3 & Inappropriée      & 4 & Évitement \\
+\hline
+1 & Aucune          & 2 & Incompréhensible  & 3 & Flexion anormale \\
+\hline
+\cellcolor{pse-bleu} & \cellcolor{pse-bleu} & 1 & Aucune            & 2 & Extension \\
+\hline
+\cellcolor{pse-bleu} & \cellcolor{pse-bleu} & \cellcolor{pse-bleu} & \cellcolor{pse-bleu} & 1 & Aucune \\
+\hline
+\end{tabular}
+}
+
+\ifA{\vspace{1mm}}{\vspace{0.4mm}}\noindent
+{\colorbox{pse-bleu}{\color{white}\bfseries\scriptsize\,Rappel EVDA\,}}\enspace
+{\small
+  $\square$\,\textbf{\textcolor{pse-bleu}{E}}veil\enspace
+  $\square$\,\textbf{\textcolor{pse-bleu}{V}}oix\enspace
+  $\square$\,\textbf{\textcolor{pse-bleu}{D}}ouleur\enspace
+  $\square$\,\textbf{\textcolor{pse-bleu}{A}}réactive%
+}
+\par
+\end{tcolorbox}
